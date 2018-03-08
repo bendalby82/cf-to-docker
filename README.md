@@ -44,7 +44,7 @@ The `02-build-and-launch-docker-container.sh` script includes some helper code a
 <img src="https://github.com/bendalby82/cfripper/blob/master/images/spring-music-docker.png" width="500px" border="1px"/>
 
 ## 4. Just use the Scripts
-1. Follow step 3.1 above as before, making a note the name you gave the app - e.g. springmusic  
+1. Follow step [3.1](https://github.com/bendalby82/cfripper/blob/master/README.md#31-installing-spring-music-on-cloud-foundry) above as before, making a note the name you gave the app - e.g. springmusic  
 2. Open a command prompt and `cd` to the root of the `cfripper` repository   
 2. `./01-make-docker-file-from-cf.sh springmusic`   
 3. `./02-build-and-launch-docker-container.sh springmusic`   

@@ -7,7 +7,7 @@
 # Location:		https://github.com/bendalby82/cf-to-docker
 
 if [ "$#" -ne 1 ]; then
-    echo "You must provide a CF app name to run this script - e.g. ./cftodocker.sh myapp. Also you must be logged into Cloud Foundry in the right org and space for the app you wish to migrate."
+    echo -e "You must provide a Cloud Foundry app name to run this script - e.g.: \n$0 myapp \nAlso you must be logged into Cloud Foundry in the right org and space for the app you wish to migrate."
     exit 1
 fi
 
@@ -39,6 +39,7 @@ CFSTARTCMD=$(cat ./$CFBLOBNAME/staging_info.yml | sed 's/.*"start_command":"\(.*
 cat << EOF > ./Dockerfile
 FROM ubuntu:16.04
 COPY $CFBLOBNAME /home/vcap/
+EXPOSE $CFPORT
 ENV TMPDIR /tmp
 ENV PORT $CFPORT
 ENV MEMORY_LIMIT $CFMEM

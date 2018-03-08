@@ -68,7 +68,7 @@ Although this topic isn't much written about in a Cloud Foundry context, you can
 http://blog.reactiveops.com/migrating-from-heroku-to-kubernetes-on-aws  
 
 ## 6. Licensing
-cfripper is freely distributed under the [MIT License](https://opensource.org/licenses/MIT). See LICENSE for details.  
+cfripper is freely distributed under the [MIT License](https://opensource.org/licenses/MIT). See [LICENSE](https://github.com/bendalby82/cfripper/blob/master/LICENSE) for details.  
 
 ## 7. Contribution
 Create a fork of the project into your own reposity. Make all your necessary changes and create a pull request with a description on what was added or removed and details explaining the changes in lines of code. If approved, project owners will merge it.  

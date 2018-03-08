@@ -15,7 +15,7 @@ https://github.com/cloudfoundry-samples/spring-music#running-the-application-on-
 3. Verify you can access the application through your browser:  
 <img src="https://github.com/bendalby82/cfripper/blob/master/images/spring-music-pcfdev.png" width="500px" border="1">   
 ## 4. Download and unpack the application's Droplet from Cloud Foundry   
-To do this, you need to first [retrieve your application's GUID](https://github.com/bendalby82/cfripper/blob/master/01-make-docker-file-from-cf.sh#L18), and then [make a call](https://github.com/bendalby82/cfripper/blob/master/01-make-docker-file-from-cf.sh#L31) to the Cloud Foundry API to retrieve the application's droplet:  
+To do this, you need to first retrieve your application's GUID (See [line 18](https://github.com/bendalby82/cfripper/blob/master/01-make-docker-file-from-cf.sh#L18)), and then make a call to the Cloud Foundry API (see [line 31]((https://github.com/bendalby82/cfripper/blob/master/01-make-docker-file-from-cf.sh#L31)))to retrieve the application's droplet:  
 <img src="https://github.com/bendalby82/cfripper/blob/master/images/spring-music-cf-api.png" width="500px" border="1">
 
 This isn't very difficult, but you do need to know that the staged droplet is in .tar.gz format. Follow the links above to see the relevant lines in the `01-make-docker-file-from-cf.sh` script.

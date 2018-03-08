@@ -1,15 +1,17 @@
-# CF Ripper
-Walkthrough: Rip a Cloud Foundry application to Docker.     
+# Walkthrough: Rip a Cloud Foundry application to Docker     
 ## 1. Summary  
-Because they follow the [12 factors](https://12factor.net/), Cloud Foundry applications are easy to port to alternative platforms. This walkthrough demonstrates how to introspect a running Cloud Foundry application, and convert it into a running Docker container.
-## 2. Prerequisites
-1. cf CLI logged into a Cloud Foundry installation where you can push applications and call the API (I used cf version 6.34.1+bbdf81482.2018-01-17 running against PCF Dev version 0.29.0). 
-2. docker CLI connected to a running Docker Machine where you can build images and launch containers (I used Docker version 18.02.0-ce, build fc4de44 running against Docker Machine version 0.13.0, build 9ba6da9). 
-3. Access to this repository and [Spring Music](https://github.com/cloudfoundry-samples/spring-music) .  
+Cloud Foundry applications are easy to port to alternative platforms because they follow the [12 factors](https://12factor.net/).  
 
-PS: I found a great guide to installing Docker on OSX via Brew at https://pilsniak.com/how-to-install-docker-on-mac-os-using-brew/ . 
+Here we convert a running Cloud Foundry Java application into a running Docker container.
+## 2. Prerequisites
+1. `cf` CLI logged into a Cloud Foundry installation where you can push applications and call the API (I used cf version 6.34.1+bbdf81482.2018-01-17 running against PCF Dev version 0.29.0). 
+2. `docker` CLI connected to a running Docker Machine where you can build images and launch containers (I used Docker version 18.02.0-ce, build fc4de44 running against Docker Machine version 0.13.0, build 9ba6da9). 
+3. Access to this repository and [Spring Music](https://github.com/cloudfoundry-samples/spring-music)    
+
+PS: I found a great guide to installing Docker on OSX via Brew at:  
+https://pilsniak.com/how-to-install-docker-on-mac-os-using-brew/   
 ## 3. Walkthrough
-This section walks through the various tasks that the ripping scripts are doing. If you just want to run the scripts, go to section 4.
+This section walks through the various tasks that the ripping scripts are doing. If you just want to run the scripts, go to [section 4](https://github.com/bendalby82/cfripper/blob/master/README.md#4-just-use-the-scripts).
 ### 3.1 Installing Spring Music on Cloud Foundry  
 1. Clone https://github.com/cloudfoundry-samples/spring-music and https://github.com/bendalby82/cfripper     
 2. Follow the instructions to push Spring Music to Cloud Foundry:   
@@ -20,7 +22,7 @@ https://github.com/cloudfoundry-samples/spring-music#running-the-application-on-
 ### 3.2 Download and unpack the application's Droplet from Cloud Foundry   
 To do this, you need to first retrieve your application's GUID (See [line 18](https://github.com/bendalby82/cfripper/blob/master/01-make-docker-file-from-cf.sh#L18)), and then make a call to the Cloud Foundry API (see [line 31](https://github.com/bendalby82/cfripper/blob/master/01-make-docker-file-from-cf.sh#L31)) to retrieve the application's droplet:  
 
-<img src="https://github.com/bendalby82/cfripper/blob/master/images/spring-music-cf-api.png" width="500px" border="1">
+[<img src="https://github.com/bendalby82/cfripper/blob/master/images/spring-music-cf-api.png" width="500px" border="1">](https://apidocs.cloudfoundry.org/280/apps/downloads_the_staged_droplet_for_an_app.html)
 
 This isn't very difficult, but you do need to know that the staged droplet is in .tar.gz format. Follow the links above to see the relevant lines in the `01-make-docker-file-from-cf.sh` script.  
 
@@ -48,3 +50,27 @@ The `02-build-and-launch-docker-container.sh` script includes some helper code a
 2. Open a command prompt and `cd` to the root of the `cfripper` repository   
 2. `./01-make-docker-file-from-cf.sh springmusic`   
 3. `./02-build-and-launch-docker-container.sh springmusic`   
+
+## 5. Commentary  
+The scripts in this project are proof-of-concept. It would be *possible* to extend them by considering:  
+a. Batch migration of applications from a whole foundation     
+b. Applications which are bound to services   
+c. Integrating these scripts into a CI/CD pipeline that published to something like Kubernetes  
+
+Clearly services hosted by Cloud Foundy will be problematic, but since many Cloud Foundy users rely on user-defined services that are implemented outside the platform, this is not necessarily an issue.  
+
+The obvious alternative to this approach is to modify your CI/CD pipeline so that it publishes straight to your Docker platform rather than Cloud Foundry, abandoning the whole Cloud Foundry buildpack mechanism.  
+
+If you are looking at this topic from the platform migration point of view, there are other topics to consider, for example logging, monitoring and security.  
+
+Although this topic isn't much written about in a Cloud Foundry context, you can learn from Heroku and search on '[move from heroku to kubernetes](https://www.google.co.uk/search?q=move+from+heroku+to+kubernetes)', e.g.:  
+http://blog.reactiveops.com/migrating-from-heroku-to-kubernetes-on-aws  
+
+## 6. Licensing
+cfripper is freely distributed under the [MIT License](https://opensource.org/licenses/MIT). See LICENSE for details.  
+
+## 7. Contribution
+Create a fork of the project into your own reposity. Make all your necessary changes and create a pull request with a description on what was added or removed and details explaining the changes in lines of code. If approved, project owners will merge it.  
+  
+## 8. Support  
+Please file bugs and issues on the Github issues page for this project. This is to help keep track and document everything related to this repo. The code and documentation are released with no warranties or SLAs and are intended to be supported through a community driven process.  

@@ -1,2 +1,2 @@
-# CF to Docker
-Clone a Cloud Foundry application to a Docker container
+# CF Ripper
+Rip a Cloud Foundry application to Docker
